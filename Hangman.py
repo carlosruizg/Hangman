@@ -14,13 +14,14 @@ class Hangman:
         indexes = [ind for (ind, char) in enumerate(self.word) if char == letter]
         for c in indexes:
             self.remaining[c] = letter                     
-        print(''.join(self.remaining))        
+        print(' '.join(self.remaining))        
         if ''.join(self.remaining) == self.word:
             self.wordFound = True
     
     def _wrong_guess(self, letter):
         print('Wrong!')
         self.chances-=1
+        print("You have {} chances left".format(self.chances))
     
     def _guess(self, letter):
         if letter in self.usedletters:
@@ -34,10 +35,12 @@ class Hangman:
                     
     def _play(self):
         print('Welcome to Hangman!')  
+        word_to_guess = ' '.join(self.remaining)                          
+        print("{}. you have {} guessesa".format(word_to_guess, len(self.word))) 
         while(self.chances > 0 and self.wordFound == False):
             letter = input('Enter letter: ')
             if letter:
-                self._guess(letter)
+                self._guess(letter.lower())
                     
         if self.wordFound:
             print('You Win!')
